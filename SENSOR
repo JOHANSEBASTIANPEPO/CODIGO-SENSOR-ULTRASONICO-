@@ -1,0 +1,35 @@
+const int trigPin = 11; //DEFINICION DE PIN TRIGER
+const int echoPin = 12; //DEFINICION DE PIN ECHO
+
+// DEFINICION DE VARIABLES
+long duracion; 
+int distancia;
+
+void setup() {
+  pinMode(trigPin, OUTPUT); // ESTABLECE EL trigPin COMO UNA SALIDA
+  pinMode(echoPin, INPUT); // ESTABLECE EL echoPin COMO UNA ENTRADA
+  Serial.begin(9600); // VELOCIDAD DE INICIO DE COMUNICACION SERIAL
+}
+
+void loop() {
+  // BORRA LOS DATOS DEL TRIGER
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // ESTABLECE EL TRIGPIN EN ESTADO ALTO DURANTE 10 MICROSEGUNDOS 
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);ESTABLECE EL trigPin EN ESTADO BAJO
+
+  // LECTURA DE EL echoPin DEVUELVE EL TIEMPO DE VIAJE DE LA ONDA DE SONIDO EN MICROSEGUNDOS 
+  duracion = pulseIn(echoPin, HIGH);
+
+  // CALCULO DE LA DISTANCIA 
+  distancia= duracion*0.034/2;
+
+  // IMPRIME LA DISTANCIA EN CM EN EL MONITOR SERIAL
+  Serial.print(String(distancia));
+  Serial.println(" cm");
+
+  delay(400);
+}
